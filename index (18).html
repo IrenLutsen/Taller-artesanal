@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Servicio de Costura Exprés | Ana Yanes — Tenerife</title>
+  <meta name="description" content="Taller de costura creativa en Bajamar, Tenerife. Cojines, cortinas, bolsos artesanales, reparaciones y ajustes. Шиття на замовлення на Тенерифе."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #2d6a4f;
+      --green-light: #52b788;
+      --green-pale: #d8f3dc;
+      --fuchsia: #c2185b;
+      --fuchsia-light: #f06292;
+      --fuchsia-pale: #fce4ec;
+      --cream: #fdf8f3;
+      --warm: #f5ede0;
+      --text: #2c2118;
+      --text-muted: #7a6a5a;
+      --border: #e8d8c8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    .lang-bar { background: var(--green); padding: 8px 24px; display: flex; justify-content: flex-end; gap: 8px; position: sticky; top: 0; z-index: 1000; }
+    .lang-btn { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 4px 14px; border-radius: 20px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: .05em; transition: all .25s; }
+    .lang-btn.active, .lang-btn:hover { background: #fff; color: var(--green); }
+
+    [data-lang] { display: none; }
+    body.lang-es [data-lang="es"] { display: block; }
+    body.lang-uk [data-lang="uk"] { display: block; }
+
+    nav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--green); letter-spacing: .02em; text-decoration: none; }
+    .logo span { color: var(--fuchsia); }
+    nav ul { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; }
+    nav ul a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .2s; }
+    nav ul a:hover { color: var(--fuchsia); }
+
+    .hero { min-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+    .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 80px 80px; position: relative; z-index: 2; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 20px; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5vw, 72px); font-weight: 300; line-height: 1.12; color: var(--text); margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--green); }
+    .hero-sub { font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 420px; margin-bottom: 40px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: .05em; text-decoration: none; transition: all .25s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--fuchsia); border: 1.5px solid var(--fuchsia); }
+    .btn-outline:hover { background: var(--fuchsia-pale); transform: translateY(-2px); }
+    .hero-images { position: relative; overflow: hidden; }
+    .hero-images::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--green-pale) 0%, var(--fuchsia-pale) 100%); opacity: .3; z-index: 1; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; gap: 3px; }
+    .hero-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .hero-grid img:hover { transform: scale(1.04); }
+    .hero-grid .main-img { grid-column: 1 / 2; grid-row: 1 / 3; }
+
+    section { padding: 90px 40px; }
+    .container { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--fuchsia); margin-bottom: 12px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.2; color: var(--text); margin-bottom: 20px; }
+    .section-title em { font-style: italic; color: var(--green); }
+    .section-intro { font-size: 16px; line-height: 1.8; color: var(--text-muted); max-width: 580px; }
+
+    .about { background: var(--warm); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-photos { position: relative; height: 520px; }
+    /* ✅ ВИПРАВЛЕНО: правильна назва класу */
+    .photo-main { position: absolute; width: 75%; height: 80%; top: 0; left: 0; object-fit: cover; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+    .photo-accent { position: absolute; width: 55%; height: 55%; bottom: 0; right: 0; object-fit: cover; border-radius: 4px; box-shadow: 0 12px 40px rgba(0,0,0,.12); border: 6px solid var(--cream); }
+    .about-text p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
+    .about-text p strong { color: var(--text); }
+    .about-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .badge { background: var(--green-pale); color: var(--green); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+    .badge.pink { background: var(--fuchsia-pale); color: var(--fuchsia); }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 50px; }
+    .service-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 36px 28px; transition: all .3s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), var(--green-light)); }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+    .service-icon { font-size: 32px; margin-bottom: 16px; }
+    .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; line-height: 1.7; color: var(--text-muted); margin-bottom: 20px; }
+    .price-tag { display: inline-block; background: var(--green-pale); color: var(--green); padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 500; }
+
+    .prices { background: var(--warm); }
+    .price-table { width: 100%; border-collapse: collapse; margin-top: 40px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.05); }
+    .price-table thead { background: var(--green); color: #fff; }
+    .price-table th, .price-table td { padding: 16px 24px; text-align: left; font-size: 15px; }
+    .price-table th { font-weight: 500; letter-spacing: .04em; }
+    .price-table tbody tr { border-bottom: 1px solid var(--border); transition: background .2s; }
+    .price-table tbody tr:hover { background: var(--green-pale); }
+    .price-table .price-val { font-weight: 600; color: var(--green); white-space: nowrap; }
+
+    .shopper { background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%); color: #fff; position: relative; overflow: hidden; }
+    .shopper::before { content: '✦'; position: absolute; font-size: 400px; color: rgba(255,255,255,.03); top: -80px; right: -60px; line-height: 1; }
+    .shopper-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .shopper-label { color: var(--green-light); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 12px; }
+    .shopper h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+    .shopper h2 em { font-style: italic; color: var(--green-light); }
+    .shopper-verse { background: rgba(255,255,255,.1); border-left: 3px solid var(--green-light); padding: 20px 24px; margin: 28px 0; border-radius: 0 8px 8px 0; }
+    .shopper-verse blockquote { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,.95); }
+    .shopper-verse cite { display: block; margin-top: 8px; font-size: 13px; color: var(--green-light); font-style: normal; }
+    .shopper p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,.82); margin-bottom: 16px; }
+    .shopper-price { font-size: 28px; font-family: 'Cormorant Garamond', serif; color: #fff; margin: 20px 0; }
+    .shopper-price span { color: var(--green-light); }
+    .shopper-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .shopper-photos img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px; border: 2px solid rgba(255,255,255,.15); }
+    .shopper-photos img:first-child { grid-column: 1 / 3; aspect-ratio: 16/9; }
+
+    .gallery { background: #fff; }
+    .masonry { columns: 4; column-gap: 12px; margin-top: 50px; }
+    .masonry-item { break-inside: avoid; margin-bottom: 12px; overflow: hidden; border-radius: 6px; }
+    .masonry-item img { width: 100%; display: block; transition: transform .5s ease; }
+    .masonry-item:hover img { transform: scale(1.05); }
+
+    .info-strip { background: var(--green); color: #fff; padding: 50px 40px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1140px; margin: 0 auto; }
+    .info-item h4 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--green-light); margin-bottom: 10px; }
+    .info-item p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.88); }
+
+    .contact { background: var(--warm); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-details { display: flex; flex-direction: column; gap: 28px; }
+    .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-icon { width: 44px; height: 44px; background: var(--green-pale); color: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .contact-item h4 { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .contact-item a, .contact-item p { font-size: 15px; color: var(--text); text-decoration: none; font-weight: 500; }
+    .contact-item a:hover { color: var(--fuchsia); }
+    .contact-cta { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 48px; text-align: center; }
+    .contact-cta h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; margin-bottom: 12px; }
+    .contact-cta p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: #fff; padding: 16px 36px; border-radius: 50px; font-size: 16px; font-weight: 500; text-decoration: none; transition: all .3s; box-shadow: 0 8px 30px rgba(37,211,102,.3); }
+    .whatsapp-btn:hover { background: #20bd5a; transform: translateY(-3px); }
+    .hours-note { margin-top: 16px; font-size: 13px; color: var(--text-muted); }
+
+    footer { background: #1a1a1a; color: rgba(255,255,255,.6); padding: 48px 40px; text-align: center; }
+    footer .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: #fff; display: block; margin-bottom: 16px; }
+    footer .footer-logo span { color: var(--green-light); }
+    footer .social-links { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+    footer .social-links a { color: rgba(255,255,255,.5); font-size: 13px; text-decoration: none; letter-spacing: .08em; transition: color .2s; }
+    footer .social-links a:hover { color: var(--green-light); }
+    footer p { font-size: 13px; }
+
+    .verse-banner { background: var(--fuchsia-pale); border-top: 2px solid var(--fuchsia-light); border-bottom: 2px solid var(--fuchsia-light); padding: 40px; text-align: center; }
+    .verse-banner blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.5vw, 30px); font-style: italic; color: var(--fuchsia); line-height: 1.6; }
+    .verse-banner cite { display: block; margin-top: 10px; font-size: 14px; color: var(--text-muted); font-style: normal; letter-spacing: .08em; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 60px 28px; }
+      .hero-images { height: 320px; }
+      .about-grid, .shopper-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-photos { height: 320px; }
+      nav { padding: 14px 20px; }
+      nav ul { gap: 16px; }
+      section { padding: 64px 20px; }
+      .masonry { columns: 2; }
+    }
+    @media (max-width: 560px) {
+      .masonry { columns: 2; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-grid .main-img { grid-row: auto; }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-eyebrow { animation: fadeUp .6s ease .1s both; }
+    .hero h1      { animation: fadeUp .7s ease .2s both; }
+    .hero-sub     { animation: fadeUp .7s ease .35s both; }
+    .hero-actions { animation: fadeUp .7s ease .5s both; }
+  </style>
+</head>
+<body class="lang-es">
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('es')">Español</button>
+  <button class="lang-btn" onclick="setLang('uk')">Українська</button>
+</div>
+
+<nav>
+  <a href="#" class="logo">Costura <span>Exprés</span></a>
+  <ul>
+    <li><a href="#about"><span data-lang="es">Historia</span><span data-lang="uk">Про нас</span></a></li>
+    <li><a href="#services"><span data-lang="es">Servicios</span><span data-lang="uk">Послуги</span></a></li>
+    <li><a href="#shopper">Shopper</a></li>
+    <li><a href="#gallery"><span data-lang="es">Galería</span><span data-lang="uk">Галерея</span></a></li>
+    <li><a href="#contact"><span data-lang="es">Contacto</span><span data-lang="uk">Контакт</span></a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home" style="padding:0;">
+  <div class="hero-text">
+    <p class="hero-eyebrow">
+      <span data-lang="es">🧵 Taller artesanal · Bajamar, Tenerife</span>
+      <span data-lang="uk">🧵 Майстерня · Баямар, Тенерифе</span>
+    </p>
+    <div data-lang="es">
+      <h1>Hacemos tus <em>ideas</em><br/>en tela</h1>
+      <p class="hero-sub">Costura creativa y artesanal en el corazón de Bajamar. Cojines, cortinas, bolsos, reparaciones y mucho más — con amor y precisión.</p>
+    </div>
+    <div data-lang="uk">
+      <h1>Втілюємо твої <em>ідеї</em><br/>в тканині</h1>
+      <p class="hero-sub">Творча та ремісничка майстерня у Баямарі, Тенерифе. Подушки, штори, сумки, ремонт одягу — з любов'ю та майстерністю.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="https://wa.me/34641296675" target="_blank" class="btn btn-primary">
+        💬 <span data-lang="es">Escribir por WhatsApp</span><span data-lang="uk">Написати у WhatsApp</span>
+      </a>
+      <a href="#services" class="btn btn-outline">
+        <span data-lang="es">Ver servicios</span><span data-lang="uk">Переглянути послуги</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-images">
+    <div class="hero-grid">
+      <img class="main-img" src="https://drive.google.com/uc?export=view&id=1fE2WgDDbEDm_NgIbeskfs3wcTjQQRjh1" alt="Costura artesanal" onerror="this.src='https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80'"/>
+      <img src="https://drive.google.com/uc?export=view&id=1chFjoSdo20vy-9xrN7GtE4OzrETceZ6Y" alt="Bolso artesanal" onerror="this.src='https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80'"/>
+      <img src="https://drive.google.com/uc?export=view&id=1-E9PAH96_dZvHIVGw2BA0B8a1SVYwwmN" alt="Cojines" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80'"/>
+    </div>
+  </div>
+</section>
+
+<div class="verse-banner">
+  <div data-lang="es"><blockquote>«Todo lo puedo en Cristo que me fortalece»</blockquote><cite>— Filipenses 4:13</cite></div>
+  <div data-lang="uk"><blockquote>«Усе можу в Христі, що мене зміцнює»</blockquote><cite>— Филип'янам 4:13</cite></div>
+</div>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photos">
+        <!-- ✅ ФОТО ЗАСНОВНИЦІ — виправлено правильно -->
+        <img class="photo-main"
+             src="images/photo-main.jpg"
+             alt="Ana Yanes"
+             onerror="this.src='https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80'"/>
+        <img class="photo-accent"
+             src="images/photo-accent.jpg"
+             alt="Taller de costura"
+             onerror="this.src='https://images.unsplash.com/photo-1612195583950-b8fd34c87093?w=400&q=80'"/>
+      </div>
+      <div class="about-text">
+        <p class="section-label">
+          <span data-lang="es">Historia de la fundadora</span>
+          <span data-lang="uk">Історія засновниці</span>
+        </p>
+        <div data-lang="es">
+          <h2 class="section-title">Ana Luisa<br/><em>Yanes Jara</em></h2>
+          <p>Ana lleva toda su vida con agujas e hilo entre las manos. Nacida con la creatividad cosida en el alma, descubrió desde pequeña que la tela no es solo material — es un lienzo donde los sueños cobran forma.</p>
+          <p>Su taller <strong>Servicio de Costura Exprés</strong>, ubicado en la Avenida Club Náutico de Bajamar, Tenerife, es mucho más que un negocio: es un espacio donde cada pieza se hace con <strong>amor, paciencia y fe</strong>. Ana es cristiana, y su fe guía cada puntada, cada creación.</p>
+          <p>Desde ajustes de trajes de novia hasta bolsos artesanales con versículos bíblicos, Ana convierte cada encargo en una obra única. <em>«Hacemos tus ideas en tela»</em> — porque para Ana no hay proyecto imposible.</p>
+        </div>
+        <div data-lang="uk">
+          <h2 class="section-title">Ана Луїса<br/><em>Янес Хара</em></h2>
+          <p>Ана все своє життя тримає в руках голку та нитку. Народжена з творчістю в душі, вона ще змалку зрозуміла, що тканина — це не просто матеріал, а полотно, де мрії набувають форми.</p>
+          <p>Її майстерня <strong>Servicio de Costura Exprés</strong>, що розташована на авеніда Клуб Наутіко в Баямарі, Тенерифе — це набагато більше, ніж бізнес. Це простір, де кожна річ створюється з <strong>любов'ю, терпінням та вірою</strong>. Ана є христинкою, і її віра скеровує кожен стібок.</p>
+          <p>Від підгонки весільних суконь до ремісничих сумок із біблійними цитатами — Ана перетворює кожне замовлення на унікальний виріб. <em>«Ми втілюємо ваші ідеї в тканині»</em> — для Ани немає неможливих проектів.</p>
+        </div>
+        <div class="about-badges">
+          <span class="badge">🧵 <span data-lang="es">Costura creativa</span><span data-lang="uk">Творче шиття</span></span>
+          <span class="badge pink">✂️ <span data-lang="es">Exprés</span><span data-lang="uk">Терміново</span></span>
+          <span class="badge">✝️ <span data-lang="es">Con fe</span><span data-lang="uk">З вірою</span></span>
+          <span class="badge pink">📍 Bajamar, Tenerife</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <p class="section-label"><span data-lang="es">Lo que ofrecemos</span><span data-lang="uk">Що ми пропонуємо</span></p>
+    <div data-lang="es"><h2 class="section-title">Nuestros <em>Servicios</em></h2><p class="section-intro">Costura creativa, artesanía en tela y reparaciones a medida. Trabajamos con todo tipo de telas para hacer realidad tus ideas.</p></div>
+    <div data-lang="uk"><h2 class="section-title">Наші <em>Послуги</em></h2><p class="section-intro">Творче шиття, виготовлення виробів із тканини та ремонт одягу. Ми працюємо з усіма видами тканин, щоб втілити ваші ідеї.</p></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🛋️</div>
+        <div data-lang="es"><h3>Cojines</h3><p>Cojines decorativos y de muebles hechos a medida, en telas de tu elección. Diseños únicos para tu hogar.</p></div>
+        <div data-lang="uk"><h3>Подушки</h3><p>Декоративні та меблеві подушки на замовлення з тканини вашого вибору. Унікальні дизайни для вашого дому.</p></div>
+        <span class="price-tag">desde 8 €</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪟</div>
+        <div data-lang="es"><h3>Cortinas</h3><p>Cortinas a medida para cualquier ventana. Selección de telas, colores y acabados personalizados.</p></div>
+        <div data-lang="uk"><h3>Штори</h3><p>Штори на замовлення для будь-яких вікон. Вибір тканин, кольорів та індивідуальне оздоблення.</p></div>
+        <span class="price-tag">desde 15 €</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👜</div>
+        <div data-lang="es"><h3>Bolsos & Artesanía</h3><p>Bolsos, estuches de maquillaje, monederos y accesorios artesanales. Cada pieza es única, cosida con esmero.</p></div>
+        <div data-lang="uk"><h3>Сумки та вироби</h3><p>Сумки, косметички, гаманці та аксесуари ручної роботи. Кожна річ унікальна, пошита з ретельністю.</p></div>
+        <span class="price-tag">8 € – 24 €</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <div data-lang="es"><h3>Reparaciones</h3><p>Cambio de cremalleras, parches, arreglo de costuras, corte de mangas y pantalones. Cualquier ropa tiene solución.</p></div>
+        <div data-lang="uk"><h3>Ремонт одягу</h3><p>Заміна блискавок, латки, ремонт швів, підрізання рукавів та штанин. Будь-який одяг можна відремонтувати.</p></div>
+        <span class="price-tag">desde 6 €</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👗</div>
+        <div data-lang="es"><h3>Ajustes de Trajes</h3><p>Ensanchar, estrechar, vueltos de pantalones y vestidos. Especialistas en trajes de gala y vestidos de novia.</p></div>
+        <div data-lang="uk"><h3>Підгонка суконь</h3><p>Розширення, звуження, підрубка штанів та суконь. Спеціалізуємось на вечірніх та весільних сукнях.</p></div>
+        <span class="price-tag">7 € – 12 €</span>
+      </div>
+      <div class="service-card" style="border-color: var(--fuchsia-light);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fuchsia),var(--fuchsia-light));"></div>
+        <div class="service-icon">✨</div>
+        <div data-lang="es"><h3>Ideas en Tela</h3><p>¿Tienes una idea especial? Delantales, manteles, estuches únicos, ropa personalizada... ¡Pídenos presupuesto!</p></div>
+        <div data-lang="uk"><h3>Ідеї з тканини</h3><p>Є особлива ідея? Фартухи, скатертини, унікальні чохли, персоналізований одяг... Запитайте прайс!</p></div>
+        <span class="price-tag" style="background:var(--fuchsia-pale);color:var(--fuchsia);"><span data-lang="es">Consultar precio</span><span data-lang="uk">Ціна за запитом</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices">
+  <div class="container">
+    <p class="section-label"><span data-lang="es">Transparencia total</span><span data-lang="uk">Повна прозорість</span></p>
+    <div data-lang="es"><h2 class="section-title">Lista de <em>Precios</em></h2></div>
+    <div data-lang="uk"><h2 class="section-title">Список <em>Цін</em></h2></div>
+    <table class="price-table">
+      <thead><tr><th><span data-lang="es">Servicio</span><span data-lang="uk">Послуга</span></th><th><span data-lang="es">Precio</span><span data-lang="uk">Ціна</span></th></tr></thead>
+      <tbody>
+        <tr><td><span data-lang="es">Ajustes y ensanchar ropa</span><span data-lang="uk">Підгонка та розширення одягу</span></td><td class="price-val">12 €</td></tr>
+        <tr><td><span data-lang="es">Vueltos de pantalón</span><span data-lang="uk">Підрубка штанів</span></td><td class="price-val">7 €</td></tr>
+        <tr><td><span data-lang="es">Vueltos vestidos sencillos</span><span data-lang="uk">Підрубка простих суконь</span></td><td class="price-val">8 €</td></tr>
+        <tr><td><span data-lang="es">Vueltos vestidos volados</span><span data-lang="uk">Підрубка суконь з воланами</span></td><td class="price-val">12 €</td></tr>
+        <tr><td><span data-lang="es">Parches</span><span data-lang="uk">Латки</span></td><td class="price-val">6 €</td></tr>
+        <tr><td><span data-lang="es">Corte de mangas y pantalones</span><span data-lang="uk">Обрізка рукавів та штанин</span></td><td class="price-val">10 €</td></tr>
+        <tr><td><span data-lang="es">Elaboración de cojines</span><span data-lang="uk">Виготовлення подушок</span></td><td class="price-val">8 €</td></tr>
+        <tr><td><span data-lang="es">Cortinas</span><span data-lang="uk">Штори</span></td><td class="price-val">15 €</td></tr>
+        <tr><td><span data-lang="es">Bolsos artesanales</span><span data-lang="uk">Ремісничі сумки</span></td><td class="price-val">23,99 €</td></tr>
+        <tr><td><span data-lang="es">Estuches artesanales</span><span data-lang="uk">Ремісничі косметички</span></td><td class="price-val">11,99 €</td></tr>
+        <tr><td><span data-lang="es">Monederos artesanales</span><span data-lang="uk">Ремісничі гаманці</span></td><td class="price-val">8 €</td></tr>
+        <tr><td>🛍️ <strong>Shopper — <span data-lang="es">Palabra de Dios</span><span data-lang="uk">Слово Боже</span></strong></td><td class="price-val" style="color:var(--green);">23,99 €</td></tr>
+        <tr><td><span data-lang="es">Ideas en tela (presupuesto personalizado)</span><span data-lang="uk">Ідеї з тканини (індивідуальне замовлення)</span></td><td class="price-val"><span data-lang="es">Consultar</span><span data-lang="uk">За запитом</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="shopper" id="shopper">
+  <div class="container">
+    <div class="shopper-grid">
+      <div>
+        <p class="shopper-label">✦ <span data-lang="es">Producto especial</span><span data-lang="uk">Особливий продукт</span></p>
+        <div data-lang="es">
+          <h2>Shopper con<br/><em>Palabra de Dios</em></h2>
+          <p>Ana es cristiana, y su fe es parte esencial de cada creación. Por eso nació este producto especial: bolsos shopper artesanales con versículos bíblicos bordados o estampados — para llevar la Palabra de Dios contigo a donde vayas.</p>
+          <p>Cada bolso es único, hecho a mano con amor y oración. Perfecto como regalo o para uso personal. Elige tu versículo favorito.</p>
+        </div>
+        <div data-lang="uk">
+          <h2>Шопер зі<br/><em>Словом Божим</em></h2>
+          <p>Ана є христинкою, і її віра — невід'ємна частина кожного виробу. Саме тому народився цей особливий продукт: ремісничі сумки-шопери з вишитими або надрукованими біблійними цитатами — щоб носити Слово Боже з собою.</p>
+          <p>Кожна сумка унікальна, пошита вручну з любов'ю та молитвою. Чудовий подарунок або для особистого використання. Оберіть свій улюблений вірш.</p>
+        </div>
+        <div class="shopper-verse">
+          <blockquote data-lang="es">«Lámpara es a mis pies tu Palabra,<br/>y lumbrera a mi camino»</blockquote>
+          <blockquote data-lang="uk">«Слово Твоє — світильник нозі моїй<br/>і світло стежині моїй»</blockquote>
+          <cite>— Salmos / Псалом 119:105</cite>
+        </div>
+        <p class="shopper-price" data-lang="es">Precio: <span>23,99 €</span></p>
+        <p class="shopper-price" data-lang="uk">Ціна: <span>23,99 €</span></p>
+        <a href="https://wa.me/34641296675?text=Hola%20Ana!%20Me%20interesa%20el%20shopper%20con%20Palabra%20de%20Dios%20%F0%9F%93%96" target="_blank" class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4);">
+          💬 <span data-lang="es">Pedir mi Shopper</span><span data-lang="uk">Замовити Шопер</span>
+        </a>
+      </div>
+      <!-- ✅ ФОТО ШОПЕРІВ — виправлено правильно -->
+      <div class="shopper-photos">
+        <img src="images/shopper-1.jpg" alt="Shopper Palabra de Dios" onerror="this.src='https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=700&q=80'"/>
+        <img src="images/shopper-2.jpg" alt="Shopper artesanal" onerror="this.src='https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80'"/>
+        <img src="images/shopper-3.jpg" alt="Shopper detalle" onerror="this.src='https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&q=80'"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="container">
+    <p class="section-label"><span data-lang="es">Nuestro trabajo</span><span data-lang="uk">Наша робота</span></p>
+    <div data-lang="es"><h2 class="section-title">Galería de <em>Creaciones</em></h2></div>
+    <div data-lang="uk"><h2 class="section-title">Галерея <em>Творінь</em></h2></div>
+    <div class="masonry">
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1O5OJPhs8oDnvUel51DMdu3kEmc9g38OC" alt="Creación 1" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1TRe3AqWVwsTwSmlabs3RAP24DiS5rsMG" alt="Creación 2" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=15m9oeNnJZi0C-iukpbz-0nmVxBy_mBh_" alt="Taller 1" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1B1nRWq97jCdd3wkCdMqV1oIRHeGZza7F" alt="Taller 2" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1J4TqzcaCHT74fQU_ysnxL4QhcCWYN7kF" alt="Creación 3" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1e2CWm1rLWKqS-ne2vREmGUXdym8fkwiq" alt="Creación 4" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1shA2913JKwv-ZtVl0Q0Zy-DjE51Hx8Qp" alt="Creación 5" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1JpoumEnOclaKUbi2fO3_ZJPAkDhPYTZW" alt="Creación 6" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1y45wPEms0KXGuFpZLUgJUNIoDrfsngQz" alt="Creación 7" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1x7JzCSWKb1Q_l_l0R15Py0CPmCA-w-aC" alt="Creación 8" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=19HnJP34bo2AOaBSX8Gh9GV361gddnUee" alt="Creación 9" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=12gKaHWP93E6qpz8-rFZdYRYmTCSah9yt" alt="Creación 10" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1-15a5dmIIg66HbUehJEw30D_CcLCe2kv" alt="Creación 11" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1Zqjz4pkzgY5anjiuMm-gMddXwqAwG-B7" alt="Creación 12" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1u9WEAGZOrcUYouxO49p2Z_mKVcuqotzM" alt="Creación 13" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1s4GilXzTwPGNP7c6hW5vRcfK1-OmQB-K" alt="Creación 14" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=10wU74u-Rf4jwk29fYvrgRgKXRtatONz7" alt="Creación 15" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1zGQzmfciA_YhVee8YGrYNYhpAXtZHb3e" alt="Creación 16" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=14r81_eb_fu6OVZebizhtGVbYe2S-MC7z" alt="Creación 17" onerror="this.style.display='none'"/></div>
+      <div class="masonry-item"><img src="https://drive.google.com/uc?export=view&id=1czd-d9wgVxnWyVj9Sjr6wQAhJChE-W-e" alt="Creación 18" onerror="this.style.display='none'"/></div>
+    </div>
+  </div>
+</section>
+
+<div class="info-strip">
+  <div class="info-grid">
+    <div class="info-item"><h4><span data-lang="es">Plazo de entrega</span><span data-lang="uk">Термін виготовлення</span></h4><p>⚡ <span data-lang="es">3 días hábiles</span><span data-lang="uk">3 робочі дні</span></p></div>
+    <div class="info-item"><h4><span data-lang="es">Entrega</span><span data-lang="uk">Доставка</span></h4><p>🏪 <span data-lang="es">Recogida en tienda · Isla · Correo</span><span data-lang="uk">Самовивіз · Острів · Пошта</span></p></div>
+    <div class="info-item"><h4><span data-lang="es">Pago</span><span data-lang="uk">Оплата</span></h4><p>💳 <span data-lang="es">Efectivo · Bizum · Tarjeta · Transferencia</span><span data-lang="uk">Готівка · Bizum · Картка · Переказ</span></p></div>
+    <div class="info-item"><h4><span data-lang="es">Horario</span><span data-lang="uk">Графік роботи</span></h4><p>🕙 10:00–14:00 <span data-lang="es">y</span><span data-lang="uk">та</span> 17:00–20:00</p></div>
+    <div class="info-item"><h4><span data-lang="es">Encargos</span><span data-lang="uk">Замовлення</span></h4><p>✅ <span data-lang="es">Trabajamos por encargo</span><span data-lang="uk">Працюємо на замовлення</span></p></div>
+  </div>
+</div>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-label"><span data-lang="es">Estamos aquí para ti</span><span data-lang="uk">Ми тут для вас</span></p>
+    <div data-lang="es"><h2 class="section-title">Hablemos de tu <em>Proyecto</em></h2></div>
+    <div data-lang="uk"><h2 class="section-title">Поговоримо про ваш <em>Проект</em></h2></div>
+    <div class="contact-grid">
+      <div class="contact-details">
+        <div class="contact-item"><div class="contact-icon">📞</div><div><h4>WhatsApp / <span data-lang="es">Teléfono</span><span data-lang="uk">Телефон</span></h4><a href="https://wa.me/34641296675">+34 641 29 66 75</a></div></div>
+        <div class="contact-item"><div class="contact-icon">✉️</div><div><h4>Email</h4><a href="mailto:Sercosexp@gmail.com">Sercosexp@gmail.com</a></div></div>
+        <div class="contact-item"><div class="contact-icon">📸</div><div><h4>Instagram</h4><a href="https://instagram.com/serviciosdecosturaexpres1" target="_blank">@serviciosdecosturaexpres1</a></div></div>
+        <div class="contact-item"><div class="contact-icon">👍</div><div><h4>Facebook</h4><a href="https://facebook.com/serviciosdecosturaexpres1" target="_blank">@serviciosdecosturaexpres1</a></div></div>
+        <div class="contact-item"><div class="contact-icon">📍</div><div><h4><span data-lang="es">Ubicación</span><span data-lang="uk">Адреса</span></h4><p>Avenida Club Náutico, Bajamar<br/>San Cristóbal de La Laguna, Tenerife</p></div></div>
+      </div>
+      <div class="contact-cta">
+        <h3><span data-lang="es">¿Lista para crear<br/>algo especial?</span><span data-lang="uk">Готові створити<br/>щось особливе?</span></h3>
+        <p data-lang="es">Escríbenos por WhatsApp y cuéntanos tu idea. Con gusto te ayudamos a hacerla realidad en tela. Gracias por confiar en nuestros servicios de costura. 🙏</p>
+        <p data-lang="uk">Напишіть нам у WhatsApp та розкажіть про свою ідею. Із задоволенням допоможемо втілити її в тканині. Дякуємо, що довіряєте нашим послугам. 🙏</p>
+        <a href="https://wa.me/34641296675?text=Hola%20Ana!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido%20%F0%9F%A7%B5" target="_blank" class="whatsapp-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.522 5.847L.057 23.882a.5.5 0 0 0 .613.613l6.087-1.465A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.924 0-3.731-.514-5.284-1.408l-.38-.22-3.934.947.966-3.875-.245-.393A9.952 9.952 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          <span data-lang="es">Escribir a Ana</span><span data-lang="uk">Написати Ані</span>
+        </a>
+        <p class="hours-note">🕙 <span data-lang="es">Horario: 10:00–14:00 y 17:00–20:00</span><span data-lang="uk">Графік: 10:00–14:00 та 17:00–20:00</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Costura <span>Exprés</span></a>
+  <div class="social-links">
+    <a href="https://instagram.com/serviciosdecosturaexpres1" target="_blank">Instagram</a>
+    <a href="https://facebook.com/serviciosdecosturaexpres1" target="_blank">Facebook</a>
+    <a href="mailto:Sercosexp@gmail.com">Email</a>
+    <a href="https://wa.me/34641296675">WhatsApp</a>
+  </div>
+  <p>Bajamar, San Cristóbal de La Laguna, Tenerife &nbsp;·&nbsp; Ana Luisa Yanes Jara</p>
+  <p style="margin-top:8px;font-size:12px;opacity:.4;">
+    <span data-lang="es">«Todo lo puedo en Cristo que me fortalece» — Fil. 4:13</span>
+    <span data-lang="uk">«Усе можу в Христі, що мене зміцнює» — Фил. 4:13</span>
+  </p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.documentElement.lang = lang;
+  }
+  document.querySelectorAll('nav ul [data-lang]').forEach(el => { el.style.display = ''; });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.service-card, .about-grid, .shopper-grid, .contact-grid').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; el.style.transition = 'opacity .7s ease, transform .7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
